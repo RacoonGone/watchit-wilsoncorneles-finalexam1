@@ -9,7 +9,7 @@ export default function MovieList({ movies, onView, onEdit, onDelete }) {
 
     return (
         <main className="grid">
-            {movies.map(function (movie) {
+            {movies.map((movie) => {
                 return rendermovie(movie);
             })}
         </main>

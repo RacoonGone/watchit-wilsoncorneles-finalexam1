@@ -36,21 +36,21 @@ function App() {
             return;
         }
         getMovies()
-            .then(function (data) {
+            .then((data) => {
                 setMovies(data);
                 setLoading(false);
             })
-            .catch(function () {
+            .catch(() => {
                 setError("Failed to load movies.");
                 setLoading(false);
             });
     }
 
-    useEffect(function () {
+    useEffect(() => {
         fetchmovies();
     }, []);
 
-    useEffect(function () {
+    useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
         const lenis = new Lenis({ duration: 1.2 });
         function raf(time) {
@@ -64,18 +64,18 @@ function App() {
         };
     }, []);
 
-    useEffect(function () {
+    useEffect(() => {
         if (loading === true) {
             return;
         }
         gsap.fromTo(".header", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" });
         gsap.fromTo(".hero", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" });
         const cards = gsap.utils.toArray(".movie");
-        cards.forEach(function (card, index) {
+        cards.forEach((card, index) => {
             gsap.fromTo(card, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, delay: (index % 4) * 0.08, ease: "power2.out", scrollTrigger: { trigger: card, start: "top 92%" } });
         });
         return function () {
-            ScrollTrigger.getAll().forEach(function (trigger) {
+            ScrollTrigger.getAll().forEach((trigger) => {
                 trigger.kill();
             });
         };
@@ -117,18 +117,18 @@ function App() {
 
         if (editingMovie === null) {
             createMovie(dataToSave)
-                .then(function (newMovie) {
+                .then((newMovie) => {
                     const updatedMovies = [...movies, newMovie];
                     setMovies(updatedMovies);
                     handlecloseform();
                 })
-                .catch(function () {
+                .catch(() => {
                     setError("Failed to add movie.");
                 });
         } else {
             updateMovie(editingMovie.id, dataToSave)
-                .then(function (updatedMovie) {
-                    const updatedMovies = movies.map(function (movie) {
+                .then((updatedMovie) => {
+                    const updatedMovies = movies.map((movie) => {
                         if (movie.id === updatedMovie.id) {
                             return updatedMovie;
                         } else {
@@ -138,7 +138,7 @@ function App() {
                     setMovies(updatedMovies);
                     handlecloseform();
                 })
-                .catch(function () {
+                .catch(() => {
                     setError("Failed to update movie.");
                 });
         }
@@ -146,14 +146,14 @@ function App() {
 
     function handleconfirmdelete() {
         deleteMovie(deleteTarget.id)
-            .then(function () {
-                const remainingMovies = movies.filter(function (movie) {
+            .then(() => {
+                const remainingMovies = movies.filter((movie) => {
                     return movie.id !== deleteTarget.id;
                 });
                 setMovies(remainingMovies);
                 setDeleteTarget(null);
             })
-            .catch(function () {
+            .catch(() => {
                 setError("Failed to delete movie.");
             });
     }

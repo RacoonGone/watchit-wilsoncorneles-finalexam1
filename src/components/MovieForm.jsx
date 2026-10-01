@@ -6,7 +6,7 @@ export default function MovieForm({ open, initialMovie, onSubmit, onClose }) {
     const [preview, setPreview] = useState("");
     const isEditing = initialMovie !== null && initialMovie !== undefined;
 
-    useEffect(function () {
+    useEffect(() => {
         if (open === true) {
             if (isEditing) {
                 form.setFieldsValue({
